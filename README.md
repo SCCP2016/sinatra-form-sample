@@ -6,12 +6,6 @@
 rake init
 ```
 
-## Unit testing
-
-```
-rake test
-```
-
 ## Server start
 
 ```
