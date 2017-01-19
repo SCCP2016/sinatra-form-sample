@@ -1,5 +1,7 @@
 require 'sinatra'
 require 'sinatra/reloader'
+require 'sinatra/json'
+require 'json'
 
 # Sinatra Main controller
 class MainApp < Sinatra::Base
@@ -27,12 +29,21 @@ class MainApp < Sinatra::Base
     name = params[:name]
     pass = params[:password]
 
-    if name == 'test1' && pass == 'pass'
+    if name == 'user' && pass == 'pass'
       session[:name] = name
       redirect '/'
     else
       redirect '/login'
     end
+  end
+
+  get '/user' do
+    json(name: session[:name])
+  end
+
+  post '/reverse', provides: :json do
+    json = JSON.parse(request.body.read, symbolize_names: true)
+    json[:message].reverse
   end
 
   post '/logout' do
